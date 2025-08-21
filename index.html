@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Andrea Churchwell — Portfolio</title>
+    <meta name="description"
+        content="Portfolio of Andrea Churchwell — Tech Pathways graduate (Justice Through Code, Columbia University). Projects in Python, Tkinter, data visualization, and ML." />
+    <meta property="og:title" content="Andrea Churchwell — Portfolio" />
+    <meta property="og:description"
+        content="Tech Pathways (Columbia University) grad building practical data apps in Python, Tkinter, and ML." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+        :root {
+            --bg: #0f0f10;
+            --panel: #1b1b1d;
+            --sub: #2a2a2d;
+            --text: #f2f2f2;
+            --muted: #bcbcbc;
+            --accent: #ff6a00;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(1200px 800px at 10% -10%, rgba(255, 106, 0, .08), transparent 40%), var(--bg);
+            color: var(--text);
+            font-family: "Lucida Bright", Georgia, "Times New Roman", Times, serif;
+            line-height: 1.5;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            filter: brightness(1.1)
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 20px 80px
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), #ff9a3d);
+            box-shadow: var(--shadow)
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0
+        }
+
+        .tag {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .pill {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--sub);
+            color: var(--muted)
+        }
+
+        .hero {
+            border: 1px solid #2d2d30;
+            background: linear-gradient(180deg, rgba(255, 106, 0, .06), transparent 35%), var(--panel);
+            border-radius: var(--radius);
+            padding: 26px 22px;
+            box-shadow: var(--shadow);
+            margin: 12px 0 28px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            mix-blend-mode: screen;
+            pointer-events: none
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            margin: 0 0 6px
+        }
+
+        .hero p {
+            color: var(--muted);
+            margin: 0
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px
+        }
+
+        @media(min-width:760px) {
+            .cards {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid #2d2d30;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, .35)
+        }
+
+        .card .eyebrow {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: .08em;
+            text-transform: uppercase
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 18px
+        }
+
+        .meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .chip {
+            font-size: 12px;
+            background: #242427;
+            border: 1px solid #34343a;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: #cfcfcf
+        }
+
+        .cta {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #35353a;
+            background: #222226;
+            color: #f7f7f7;
+            padding: 10px 12px;
+            border-radius: 12px
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: #141414;
+            border-color: transparent;
+            font-weight: 600
+        }
+
+        .btn.is-ghost {
+            background: transparent;
+            border-style: dashed;
+            color: #c9c9c9
+        }
+
+        /* Sections + ribbon accent */
+        section {
+            margin: 32px 0
+        }
+
+        section h2 {
+            font-size: 22px;
+            margin: 0 0 14px;
+            position: relative;
+            padding-bottom: 14px
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(255, 106, 0, .6), rgba(255, 160, 64, .6));
+            box-shadow: 0 6px 22px rgba(255, 106, 0, .25);
+            transform-origin: left center;
+            transform: perspective(800px) rotateX(0deg) translateZ(0);
+        }
+
+        footer {
+            margin-top: 30px;
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px
+        }
+
+        @media(min-width:760px) {
+            .split {
+                grid-template-columns: 2fr 1fr
+            }
+        }
+
+        .contact {
+            background: var(--sub);
+            border: 1px solid #2f2f33;
+            padding: 16px;
+            border-radius: 14px
+        }
+
+        /* Interactive ribbon (hero) */
+        .ribbon-wrap {
+            position: relative;
+            height: 56px;
+            margin: -6px 0 18px 0
+        }
+
+        .ribbon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            z-index: 5
+        }
+
+        .ribbon::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(255, 106, 0, .9), rgba(255, 160, 64, .9));
+            filter: brightness(1);
+            box-shadow: 0 8px 30px rgba(255, 106, 0, .25);
+        }
+
+        .ribbon::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: radial-gradient(120px 60px at var(--sx, 50%) 50%, rgba(255, 255, 255, .25), transparent 60%);
+        }
+
+        .ribbon .rtext {
+            position: relative;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: #141414
+        }
+
+        @media(min-width:760px) {
+            .ribbon-wrap {
+                height: 64px
+            }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .ribbon {
+                transform: none !important
+            }
+
+            .ribbon::after {
+                display: none
+            }
+
+            .hero canvas {
+                display: none
+            }
+
+            section h2::after {
+                box-shadow: none
+            }
+        }
+
+        /* Placeholder thumbnails */
+        .thumbp {
+            height: 180px;
+            border: 1px solid #2d2d30;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .30);
+            background:
+                radial-gradient(120% 100% at 0% 0%, rgba(255, 106, 0, .15), transparent 60%),
+                linear-gradient(135deg, #1b1b1d, #151517 60%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thumbp::after {
+            content: attr(data-label);
+            color: #f2f2f2;
+            font-weight: 700;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            opacity: .92;
+        }
+
+        .thumbp::before {
+            content: "";
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(40% 30% at var(--sx, 50%) 50%, rgba(255, 255, 255, .10), transparent 60%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        @media(min-width:760px) {
+            .thumbp {
+                height: 200px;
+            }
+        }
+
+        /* Confetti canvas (sits above hero content briefly) */
+        #confettiCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="brand">
+                <div class="logo" aria-hidden="true"></div>
+                <div>
+                    <h1>Andrea Churchwell</h1>
+                    <div class="tag">Python • Data apps • Tkinter • ML • Dashboards</div>
+                </div>
+            </div>
+            <span class="pill">Open to roles • Remote</span>
+        </header>
+
+        <!-- Interactive ribbon -->
+        <div class="ribbon-wrap" aria-hidden="true">
+            <div class="ribbon" id="ribbon">
+                <span class="rtext">Justice Through Code • Tech Pathways — Columbia University</span>
+            </div>
+        </div>
+
+        <div class="hero">
+            <canvas id="heroCanvas" aria-hidden="true"></canvas>
+            <!-- Confetti burst on load -->
+            <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+            <h2>Hi, I’m Andrea.</h2>
+            <p>I’m a JTC Tech Pathways fellow at Columbia. I like to experiment with projects — from my weather
+                dashboard capstone to smaller practice apps — as a way to keep learning and see what I can make work in
+                Python.</p>
+
+        </div>
+
+        <section>
+            <h2>Projects</h2>
+            <div class="cards">
+                <!-- Project 1 -->
+                <article class="card">
+                    <div class="eyebrow">Featured</div>
+                    <div class="thumbp" data-label="Volunteer Weather"></div>
+                    <h3>Volunteer Weather — Desktop App</h3>
+                    <p>A Python/Tkinter dashboard with OpenWeather API, an animated LeafletJS radar, Matplotlib charts,
+                        and a small ML model that predicts Selmer’s max temp.</p>
+                    <div class="meta">
+                        <span class="chip">Python</span><span class="chip">Tkinter</span><span
+                            class="chip">Matplotlib</span>
+                        <span class="chip">LeafletJS</span><span class="chip">SQLite</span><span class="chip">ML</span>
+                    </div>
+                    <div class="cta">
+                        <a class="btn primary" href="https://www.loom.com/share/2ab575b6419845c98ef9b56c850f4628"
+                            target="_blank" rel="noopener">Demo / Video</a>
+                        <a class="btn" href="https://github.com/Andreachurchwell/TPS_Capstone2025" target="_blank"
+                            rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="card">
+                    <div class="eyebrow">Team Feature</div>
+                    <div class="thumbp" data-label="Weather U Like It or Not"></div>
+                    <h3>Weather U Like It or Not — Data Viz</h3>
+                    <p>Team dashboard built from a standardized CSV of 1 year of hometown weather per teammate; polished
+                        visuals with Matplotlib, shared schema, and city comparisons.</p>
+                    <div class="meta">
+                        <span class="chip">Pandas</span><span class="chip">Matplotlib</span><span class="chip">Data
+                            Cleaning</span>
+                    </div>
+                    <div class="cta">
+                        <a class="btn is-ghost" href="#" aria-disabled="true">Demo coming soon</a>
+                        <a class="btn" href="https://github.com/Andreachurchwell/jtc_team_7_group_feature"
+                            target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="card">
+                    <div class="eyebrow">Just for fun</div>
+                    <div class="thumbp" data-label="Who He Play For"></div>
+                    <h3>Basketball — “Who He Play For” GUI</h3>
+                    <p>A Python GUI inspired by the “Who He Play For” bit on Inside the NBA — guess the right team for
+                        each player. Simple game loop, GUI elements, and scoring system for fun practice.</p>
+                    <div class="meta">
+                        <span class="chip">Python</span><span class="chip">GUI</span>
+                    </div>
+                    <div class="cta">
+                        <!-- repo later -->
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="card">
+                    <div class="eyebrow">Game</div>
+                    <div class="thumbp" data-label="Name That Sitcom"></div>
+                    <h3>Name That Sitcom — GUI</h3>
+                    <p>A nod to <em>Name That Tune</em>: it plays classic sitcom theme jingles and you guess the show.
+                        Built with Python/Tkinter, focusing on GUI design, input handling, and audio playback.</p>
+                    <div class="meta">
+                        <span class="chip">Python</span><span class="chip">Tkinter</span><span class="chip">Audio</span>
+                    </div>
+                    <div class="cta">
+                        <!-- repo later -->
+                    </div>
+                </article>
+
+                <!-- Project 5 -->
+                <article class="card">
+                    <div class="eyebrow">ML Project</div>
+                    <div class="thumbp" data-label="Flower Shop ML"></div>
+                    <h3>Flower Shop ML — Classification + Regression</h3>
+                    <p>A small flower shop project I built for fun while learning ML. Used Jupyter Notebook to try out
+                        Linear Regression and KNN, practice feature engineering, and get more comfortable with metrics
+                        and charts.</p>
+                    <div class="meta">
+                        <span class="chip">Python</span><span class="chip">Pandas</span><span
+                            class="chip">Matplotlib</span>
+                        <span class="chip">Scikit-learn</span><span class="chip">ML</span>
+                    </div>
+                    <div class="cta">
+                        <!-- repo later -->
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="split">
+            <div>
+                <h2>About</h2>
+                <p>Based in Selmer, TN. I completed the <strong>Persevere Tech Alliance</strong> bootcamp (front-end and
+                    full-stack MERN), then graduated from Columbia University’s <strong>Justice Through Code — Tech
+                        Pathways</strong> in 2025.</p>
+                <p>In Tech Pathways, I built projects that combine Python, data apps, visualization, and machine
+                    learning. I’m excited to go deeper into ML in the upcoming <strong>AISE (AI Software
+                        Engineering)</strong> program.</p>
+                <p><strong>Comfortable with:</strong> Python, Tkinter, Pandas, Matplotlib, SQLite, REST APIs,
+                    Scikit-learn. <strong>Interested in:</strong> deeper ML and deployment workflows.</p>
+            </div>
+            <aside class="contact">
+                <h2>Contact</h2>
+                <p><a href="mailto:churchwellandrea@gmail.com">churchwellandrea@gmail.com</a></p>
+                <p><a href="https://www.linkedin.com/in/andrea-churchwell-669443321/" target="_blank"
+                        rel="noopener">LinkedIn</a></p>
+                <p><a href="https://github.com/AndreaChurchwell" target="_blank" rel="noopener">GitHub</a></p>
+            </aside>
+        </section>
+
+        <section>
+            <h2>Earlier Work — Persevere</h2>
+            <div class="cards">
+                <!-- React Shoe Store (placeholder now) -->
+                <article class="card">
+                    <div class="eyebrow">Front-End Final</div>
+                    <div class="thumbp" data-label="React Shoe Store"></div>
+                    <h3>React Shoe Store</h3>
+                    <p>A small React app with product cards, cart state, and simple filters. Built as my Persevere
+                        front-end final.</p>
+                    <div class="meta">
+                        <span class="chip">React</span><span class="chip">JavaScript</span><span class="chip">CSS</span>
+                    </div>
+                    <div class="cta">
+                        <a class="btn" href="https://github.com/Andreachurchwell/ReactShoeStoreApp" target="_blank"
+                            rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <!-- Louie Sky Tracker -->
+                <article class="card">
+                    <div class="eyebrow">Full-Stack Final</div>
+                    <div class="thumbp" data-label="Louie Sky Tracker"></div>
+                    <h3>Louie Sky Tracker — Weather App</h3>
+                    <p>Full-stack weather app with registration/login, JWT cookie authentication, and Node/Express
+                        backend. Front-end UI was kept simple while demonstrating secure routes and API integration.</p>
+                    <div class="meta">
+                        <span class="chip">Node.js</span><span class="chip">Express</span><span
+                            class="chip">MongoDB</span>
+                        <span class="chip">JWT</span><span class="chip">React</span>
+                    </div>
+                    <div class="cta">
+                        <a class="btn" href="https://github.com/Andreachurchwell/ReactWeatherApp" target="_blank"
+                            rel="noopener">GitHub</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            © <span id="y"></span> Andrea Churchwell
+        </footer>
+    </div>
+
+    <script>
+        // Mouse-follow tilt + sheen for the ribbon
+        const ribbon = document.getElementById('ribbon');
+        let w = window.innerWidth, h = 200; // approx area height
+        function onMove(e) {
+            const x = e.clientX / w; // 0..1
+            const y = Math.min(Math.max((e.clientY - ribbon.getBoundingClientRect().top) / h, 0), 1);
+            const mx = (x - 0.5) * 2; // -1..1
+            const my = (y - 0.5) * 2; // -1..1
+            ribbon.style.transform = `perspective(800px) rotateX(${(-my * 6).toFixed(2)}deg) rotateY(${(mx * 8).toFixed(2)}deg) translateZ(0)`;
+            ribbon.style.setProperty('--sx', `${(x * 100).toFixed(1)}%`);
+            document.documentElement.style.setProperty('--sx', `${(x * 100).toFixed(1)}%`);
+        }
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('resize', () => { w = window.innerWidth; });
+    </script>
+
+    <script>
+        // Lightweight canvas animation behind hero text (pauses off-screen & respects reduced motion)
+        (function () {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+            const ctx = canvas.getContext('2d');
+            let dpr = Math.max(1, window.devicePixelRatio || 1);
+            let running = false; // start paused until visible
+            const mouse = { x: 0.5, y: 0.5 };
+            const COLORS = ['rgba(255,106,0,0.35)', 'rgba(255,170,90,0.25)', 'rgba(255,255,255,0.15)'];
+            let particles = [];
+
+            function resize() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = Math.floor(rect.width * dpr);
+                canvas.height = Math.floor(rect.height * dpr);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+                makeParticles();
+            }
+
+            function makeParticles() {
+                const count = Math.max(22, Math.floor((canvas.clientWidth * canvas.clientHeight) / 20000));
+                particles = [];
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.clientWidth,
+                        y: Math.random() * canvas.clientHeight,
+                        vx: (Math.random() - 0.5) * 0.25,
+                        vy: (Math.random() - 0.5) * 0.25,
+                        len: 30 + Math.random() * 70,
+                        w: 0.8 + Math.random() * 1.6,
+                        color: COLORS[i % COLORS.length],
+                        speed: 0.4 + Math.random() * 0.8
+                    });
+                }
+            }
+
+            function step() {
+                if (!running) return;
+                ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+                for (const p of particles) {
+                    p.vx += (mouse.x * canvas.clientWidth - p.x) * 0.00002;
+                    p.vy += (mouse.y * canvas.clientHeight - p.y) * 0.00002;
+                    p.x += p.vx * p.speed; p.y += p.vy * p.speed;
+                    const cw = canvas.clientWidth, ch = canvas.clientHeight;
+                    if (p.x < -50) p.x = cw + 50; if (p.x > cw + 50) p.x = -50;
+                    if (p.y < -50) p.y = ch + 50; if (p.y > ch + 50) p.y = -50;
+                    const ang = Math.atan2(p.vy, p.vx);
+                    const x2 = p.x - Math.cos(ang) * p.len;
+                    const y2 = p.y - Math.sin(ang) * p.len;
+                    ctx.strokeStyle = p.color; ctx.lineWidth = p.w;
+                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(x2, y2); ctx.stroke();
+                }
+                requestAnimationFrame(step);
+            }
+
+            function onMouse(e) {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = (e.clientX - rect.left) / rect.width;
+                mouse.y = (e.clientY - rect.top) / rect.height;
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                running = !document.hidden && isVisible;
+                if (running) requestAnimationFrame(step);
+            });
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', onMouse, { passive: true });
+
+            // Pause when hero not visible
+            let isVisible = false;
+            const io = new IntersectionObserver((entries) => {
+                isVisible = entries.some(e => e.isIntersecting);
+                running = isVisible && !document.hidden;
+                if (running) requestAnimationFrame(step);
+            }, { threshold: 0.1 });
+            io.observe(canvas);
+
+            resize();
+        })();
+
+        // Confetti burst in hero (one-time, respects reduced motion)
+        (function () {
+            const c = document.getElementById('confettiCanvas');
+            if (!c) return;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) { c.remove(); return; }
+
+            const ctx = c.getContext('2d');
+            let dpr = Math.max(1, window.devicePixelRatio || 1);
+            let pieces = [];
+            let running = true;
+            let start;
+
+            function resize() {
+                const rect = c.getBoundingClientRect();
+                c.width = Math.floor(rect.width * dpr);
+                c.height = Math.floor(rect.height * dpr);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+            }
+
+            function makeBurst() {
+                pieces = [];
+                const N = 120;
+                for (let i = 0; i < N; i++) {
+                    pieces.push({
+                        x: Math.random() * c.clientWidth,
+                        y: -20 - Math.random() * 40,
+                        vx: (-1 + Math.random() * 2) * (0.8 + Math.random() * 1.2),
+                        vy: 2 + Math.random() * 2.5,
+                        w: 6 + Math.random() * 6,
+                        h: 8 + Math.random() * 10,
+                        r: Math.random() * Math.PI,
+                        vr: (-0.2 + Math.random() * 0.4),
+                        color: i % 3 === 0 ? '#ff6a00' : (i % 3 === 1 ? '#ffb366' : '#ffffff'),
+                        life: 1
+                    });
+                }
+            }
+
+            function step(ts) {
+                if (!running) return;
+                if (!start) start = ts;
+                const t = (ts - start) / 1000; // seconds
+                ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
+
+                for (const p of pieces) {
+                    p.vy += 0.03;            // gravity
+                    p.vx *= 0.995;           // slight air drag
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.r += p.vr;
+                    p.life = Math.max(0, 1 - t / 2.2); // fade over ~2.2s
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.r);
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                }
+
+                // stop after fade
+                if (t > 2.4) {
+                    running = false;
+                    c.style.display = 'none';
+                    return;
+                }
+                requestAnimationFrame(step);
+            }
+
+            // kick off
+            const io = new IntersectionObserver((entries) => {
+                if (entries.some(e => e.isIntersecting)) {
+                    resize();
+                    makeBurst();
+                    requestAnimationFrame(step);
+                    io.disconnect();
+                }
+            }, { threshold: 0.2 });
+            io.observe(c);
+
+            window.addEventListener('resize', resize);
+        })();
+
+        // footer year
+        document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
